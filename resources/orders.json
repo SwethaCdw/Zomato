@@ -1,0 +1,238 @@
+[
+    {
+       "id": 1,
+       "item": "filet",
+       "restaurant_name": "American Steak House",
+       "userId": 5,
+       "date" : "02/02/2024",
+       "quantity":10,
+       "price":400
+    },
+    {
+       "id": 2,
+       "item": "cheese pizza",
+       "restaurant_name": "Honest John Pizza",
+       "drink": "lemonade",
+       "userId" : 3,
+       "date" : "02/02/2024",
+       "quantity":5,
+       "price":140
+
+    },
+    {
+       "id": 3,
+       "item": "cheese pizza",
+       "restaurant_name": "Honest John Pizza",
+       "drink": "soda",
+       "userId": 2,
+       "date" : "02/02/2024",
+       "quantity":5,
+       "price":300
+    },
+    {
+        "id": 4,
+        "item": "filet",
+        "restaurant_name": "American Steak House",
+        "userId": 5,
+        "date" : "02/02/2024",
+        "quantity":8,
+        "price":200
+     },
+     {
+        "id": 5,
+        "item": "cheese pizza",
+        "restaurant_name": "Honest John Pizza",
+        "drink": "lemonade",
+        "userId" : 2,
+        "date" : "02/02/2024",
+        "quantity":2,
+        "price":190
+     },
+     {
+        "id": 6,
+        "item": "chicken 65",
+        "restaurant_name": "Knock Out",
+        "drink": "badam",
+        "userId": 12,
+        "date" : "02/02/2024",
+        "quantity":30,
+        "price":2400
+     },
+     {
+        "id": 7,
+        "item": "idly",
+        "restaurant_name": "Mahalakshmi",
+        "userId": 15,
+        "date" : "01/02/2024",
+        "quantity":1,
+        "price":40
+     },
+     {
+        "id": 8,
+        "item": "Gobi 65",
+        "restaurant_name": "Sarvana Bhavan",
+        "drink": "buttermilk",
+        "userId" : 13,
+        "date" : "01/02/2024",
+        "quantity":5,
+        "price":140
+ 
+     },
+     {
+        "id": 9,
+        "item": "",
+        "restaurant_name": "Juice Box",
+        "drink": "watermelon",
+        "userId": 12,
+        "date" : "01/02/2024",
+        "quantity":5,
+        "price":300
+     },
+     {
+         "id": 10,
+         "item": "muskmelon",
+         "restaurant_name": "Balaji Juices",
+         "userId": 10,
+         "date" : "01/02/2023",
+         "quantity":8,
+         "price":200
+      },
+      {
+         "id": 11,
+         "item": "Gobi Noodles",
+         "restaurant_name": "Hotel Taj",
+         "drink": "falooda",
+         "userId" : 9,
+         "date" : "01/02/2024",
+         "quantity":2,
+         "price":190
+      },
+      {
+         "id": 12,
+         "item": "Egg Fry",
+         "restaurant_name": "Samy Chettinad Chicken",
+         "drink": "",
+         "userId": 3,
+         "date" : "01/02/2022",
+         "quantity":3,
+         "price":140
+      },
+      {
+        "id": 13,
+        "item": "plain pizza",
+        "restaurant_name": "American Steak House",
+        "userId": 1,
+        "date" : "01/05/2024",
+        "quantity":10,
+        "price":400
+     },
+     {
+        "id": 14,
+        "item": "pepperoni pizza",
+        "restaurant_name": "Honest John Pizza",
+        "drink": "lemonade",
+        "userId" : 3,
+        "date" : "01/09/2021",
+        "quantity":2,
+        "price":600
+ 
+     },
+     {
+        "id": 15,
+        "item": "cheese pizza",
+        "restaurant_name": "Honest John Pizza",
+        "drink": "soda",
+        "userId": 2,
+        "date" : "02/02/2020",
+        "quantity":5,
+        "price":300
+     },
+     {
+         "id": 16,
+         "item": "filet",
+         "restaurant_name": "American Steak House",
+         "userId": 5,
+         "date" : "02/02/2024",
+         "quantity":8,
+         "price":200
+      },
+      {
+         "id": 17,
+         "item": "",
+         "restaurant_name": "Honest John Pizza",
+         "drink": "lemonade",
+         "userId" : 2,
+         "date" : "02/02/2000",
+         "quantity":2,
+         "price":190
+      },
+      {
+         "id": 18,
+         "item": "chicken 65",
+         "restaurant_name": "Knock Out",
+         "drink": "badam",
+         "userId": 7,
+         "date" : "02/02/2022",
+         "quantity":30,
+         "price":2400
+      },
+      {
+         "id": 19,
+         "item": "idly",
+         "restaurant_name": "Mahalakshmi",
+         "userId": 4,
+         "date" : "01/02/2024",
+         "quantity":1,
+         "price":40
+      },
+      {
+         "id": 20,
+         "item": "Gobi 65",
+         "restaurant_name": "Sarvana Bhavan",
+         "drink": "buttermilk",
+         "userId" : 13,
+         "date" : "01/22/2024",
+         "quantity":5,
+         "price":140
+  
+      },
+      {
+         "id": 21,
+         "item": "",
+         "restaurant_name": "Juice Box",
+         "drink": "watermelon",
+         "userId": 14,
+         "date" : "01/02/2024",
+         "quantity":5,
+         "price":300
+      },
+      {
+          "id": 22,
+          "item": "muskmelon",
+          "restaurant_name": "Balaji Juices",
+          "userId": 10,
+          "date" : "01/02/2024",
+          "quantity":8,
+          "price":200
+       },
+       {
+          "id": 23,
+          "item": "Idiappam",
+          "restaurant_name": "Hotel Taj",
+          "drink": "falooda",
+          "userId" : 6,
+          "date" : "01/02/2024",
+          "quantity":2,
+          "price":190
+       },
+       {
+          "id": 24,
+          "item": "kalDosa",
+          "restaurant_name": "Samy Chettinad Chicken",
+          "drink": "",
+          "userId": 7,
+          "date" : "01/18/2024",
+          "quantity":3,
+          "price":250
+       }
+ ] 

@@ -1,0 +1,92 @@
+[ 
+    {
+        "id" : 1,
+        "name" : "Honest John Pizza",
+        "food" : [ "cheese pizza", "pepperoni pizza" ],
+        "beverages" : [ "soda" ,"lemonade"]
+    },
+    {
+        "id" : 2,
+        "name" : "American Steak House",
+        "food" : [ "cheese burst pizza", "plain pizza" ,"filet"],
+        "beverages" : []
+    },
+    {
+        "id" : 3,
+        "name" : "Knock out",
+        "food" : [ "prawn fry", "chicken 65" ,"parotta"],
+        "beverages" : ["rose milk","badam"]
+    },
+    {
+        "id" : 4,
+        "name" : "FB Cakes",
+        "food" : [ "chocolate cake", "Butter Scotch cake" ,"Vanilla cake"],
+        "beverages" : ["lemonade","soda","buttermilk"]
+    },
+    {
+        "id" : 5,
+        "name" : "Mahalakshmi",
+        "food" : [ "idly", "dosa" ,"parotta"],
+        "beverages" : ["tea","coffee","buttermilk"]
+    },
+    {
+        "id" : 6,
+        "name" : "KFC",
+        "food" : [ "pepper chicken", "chicken fry" ,"burger"],
+        "beverages" : ["pepsi","maaza","fanta"]
+    },
+    {
+        "id" : 7,
+        "name" : "Sarvana Bhavan",
+        "food" : [ "Gobi 65", "potato fry" ,"chapathi"],
+        "beverages" : ["tea","coffee","buttermilk"]
+    },
+    {
+        "id" : 8,
+        "name" : "Thangam Hotel",
+        "food" : [ "Gobi Noodles", "Dosa" ,"Idiappam"],
+        "beverages" : []
+    },
+    {
+        "id" : 9,
+        "name" : "Juice Box",
+        "food" : [],
+        "beverages" : ["watermelon","pineapple","muskmelon"]
+    },
+    {
+        "id" : 10,
+        "name" : "Balaji Juices",
+        "food" : [],
+        "beverages" : ["watermelon","pineapple","muskmelon"]
+    },
+    {
+        "id" : 11,
+        "name" : "Muthulakshmi Hotel",
+        "food" : [ "Gobi Noodles", "Dosa" ,"Idiappam"],
+        "beverages" : []
+    },
+    {
+        "id" : 12,
+        "name" : "Hotel City Gate",
+        "food" : [ "Gobi Noodles", "Dosa" ,"Idiappam"],
+        "beverages" : ["falooda","icecream"]
+    },
+    {
+        "id" : 13,
+        "name" : "Hotel Taj",
+        "food" : [ "Gobi Noodles", "Dosa" ,"Idiappam"],
+        "beverages" : ["falooda","icecream"]
+    },
+    {
+        "id" : 14,
+        "name" : "Samy Chettinad Chicken",
+        "food" : [ "Egg fry", "kalDosa" ,"parotta"],
+        "beverages" : []
+    },
+    {
+        "id" : 15,
+        "name" : "A2B",
+        "food" : [ "Panner Dosa", "Dosa" ,"parotta"],
+        "beverages" : ["soda","badam","buttermilk","tea"]
+    }
+]
