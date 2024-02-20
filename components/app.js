@@ -231,12 +231,38 @@ function getUniqueUserIds() {
 
 
 
-document.getElementById("1").addEventListener("click", getMaxItemSoldDay);
-document.getElementById("2").addEventListener("click", getUniqueUserIds);
-document.getElementById("3").addEventListener("click", getHighSaleRestaurant);
-document.getElementById("4").addEventListener("click", getUnSoldRestaurant);
-document.getElementById("5").addEventListener("click", getRestaurantWithSameItems);
-document.getElementById("6").addEventListener("click", getUsersWithFoodAndBeverage);
-document.getElementById("7").addEventListener("click", getSoldQuantityInfo);
-document.getElementById("8").addEventListener("click", getRestaurantInfo);
-document.getElementById("9").addEventListener("click", sortOrdersByDate);
+document.getElementById("button-container").addEventListener("click", function(event) {
+    const buttonId = event.target.id;
+
+    switch (buttonId) {
+        case "1":
+            getMaxItemSoldDay();
+            break;
+        case "2":
+            getUniqueUserIds();
+            break;
+        case "3":
+            getHighSaleRestaurant();
+            break;
+        case "4":
+            getUnSoldRestaurant();
+            break;
+        case "5":
+            getRestaurantWithSameItems();
+            break;
+        case "6":
+            getUsersWithFoodAndBeverage();
+            break;
+        case "7":
+            getSoldQuantityInfo();
+            break;
+        case "8":
+            getRestaurantInfo();
+            break;
+        case "9":
+            sortOrdersByDate();
+            break;
+        default:
+            break;
+    }
+});
