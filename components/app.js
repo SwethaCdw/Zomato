@@ -5,19 +5,25 @@ import { APP_CONSTANTS } from '../constants/app-constants.js';
  * Identify which day more items are sold, and print weekday sale or weekend sale based on day
  * 
  */
-function getMaxItemSoldDay(){
+function getMaxSaleDetails(){
     const orders = ordersData;
-    let itemsSoldByDate = orders.reduce((obj, order) => {
-
-        let { date, quantity } = order;
-        if (obj[date]) {
-            obj[date] += quantity;
-        } else {
-            obj[date] = quantity;
-        }
-        return obj;
-    }, {});
+    let itemsSoldByDate = getItemsSoldByDate(orders);
     
+    let maxDayDetail = getMaxSoldDayDetail(itemsSoldByDate);
+
+    console.log("Max Items sold date : ",maxDayDetail);
+    
+    if(APP_CONSTANTS.WEEK_DAYS.find(item => item === maxDayDetail.maxDay.toUpperCase())){
+        let weekdaySale = getWeekDayAndWeekendSale(APP_CONSTANTS.WEEKDAY_KEY, orders);
+        console.log(`WEEKDAY SALE: Rs.${weekdaySale}`);
+    } else {
+        let weekendSale = getWeekDayAndWeekendSale(APP_CONSTANTS.WEEKEND_KEY, orders);
+        console.log(`WEEKEND SALE: Rs.${weekendSale}`);
+    }
+                
+}
+
+function getMaxSoldDayDetail(itemsSoldByDate) {
     let maxDate = null;
     let maxItemsSold = 0;
     
@@ -35,10 +41,12 @@ function getMaxItemSoldDay(){
         maxDate : maxDate
     }
 
+    return maxDayDetail;
+}
+
+function getWeekDayAndWeekendSale(dayType, orders) {
     let weekdaySale = 0;
     let weekendSale = 0;
-
-    console.log("Max Items sold date : ",maxDayDetail);
        
     orders.forEach(order => {
         const orderDate = new Date(order.date);
@@ -48,13 +56,57 @@ function getMaxItemSoldDay(){
             weekendSale += order.price * order.quantity;
         }
     });
-    if(APP_CONSTANTS.WEEK_DAYS.find(item => item === maxDay.toUpperCase())){
-        console.log('WEEKDAY SALE: ', weekdaySale);
-    } else {
-        console.log('WEEKEND SALE: ', weekendSale);
+
+    return dayType === 'WEEKDAY' ? weekdaySale : weekendSale;
+}
+
+function getItemsSoldByDate(orders) {
+    return orders.reduce((obj, order) => {
+
+        let { date, quantity } = order;
+        if (obj[date]) {
+            obj[date] += quantity;
+        } else {
+            obj[date] = quantity;
+        }
+        return obj;
+    }, {});
+}
+
+/**
+ * How many users placed same order and print details of users & order details
+ */
+function checkDuplicateOrders() {
+    const orders = ordersData;
+    const orderMap = new Map();
+    const orderDetails = [];
+    const usersMap = new Map();
+
+    for (const user of userData) {
+        usersMap.set(user.id, user.name);
     }
-            
-       
+
+    for (const order of orders) {
+        let userIds = new Set();
+        const key = order.item + "-" + (order.drink || "");
+        const existingOrders = orderMap.get(key) || [];
+        existingOrders.forEach(existingOrder => {
+            userIds.add(existingOrder.userId);
+        })
+        if(!userIds.has(order.userId)){
+            existingOrders.push(order);
+            orderMap.set(key, existingOrders);
+        }
+    }
+
+    orderMap.forEach((value, key) => {
+        if (value.length > 1) {
+            const userDetails = value.map(order => usersMap.get(order.userId));
+            orderDetails.push({ userDetails, orderDetails: key });
+        }
+    });
+
+    console.log(" Order details:", orderDetails);
 }
 
 /**
@@ -65,9 +117,16 @@ function getHighSaleRestaurant() {
     const orders = ordersData;
     const restaurantSalesMap = new Map();
 
+    getRestaurantSalesMap(restaurantSalesMap, orders);
+
+    const { highestSales, highestSellingRestaurant } = getHighestSaleRestaurantDetails(restaurantSalesMap);
+
+    console.log(`Highest Sales Restaurant Name : ${highestSellingRestaurant} Sale Price : ${highestSales}`);
+}
+
+function getRestaurantSalesMap(restaurantSalesMap, orders) {
     orders.forEach(order => {
-        const { restaurant_name, price, quantity } = order;
-        // const totalPrice = price * quantity;
+        const { restaurant_name, price } = order;
 
         if (restaurantSalesMap.has(restaurant_name)) {
             restaurantSalesMap.set(restaurant_name, restaurantSalesMap.get(restaurant_name) + price);
@@ -75,7 +134,9 @@ function getHighSaleRestaurant() {
             restaurantSalesMap.set(restaurant_name, price);
         }
     });
+}
 
+function getHighestSaleRestaurantDetails(restaurantSalesMap) {
     let highestSales = 0;
     let highestSellingRestaurant = '';
 
@@ -86,7 +147,7 @@ function getHighSaleRestaurant() {
         }
     });
 
-    console.log('Highest sales Restaurant',highestSales, highestSellingRestaurant);
+    return { highestSales, highestSellingRestaurant };
 }
 
 /**
@@ -98,10 +159,9 @@ function getUnSoldRestaurant() {
     const restaurantInfo = restaurantsData;
 
     const soldRestaurantNames = new Set(orders.map(order => order.restaurant_name.toUpperCase()));
-    const unsoldRestaurants = restaurantInfo.filter(restaurant => !soldRestaurantNames.has(restaurant.name.toUpperCase()));
-    console.log(unsoldRestaurants);
-    const unsoldRestaurantNames = unsoldRestaurants.map(restaurant => restaurant.name);
-    console.log("Restaurants that did not make any sales:" ,unsoldRestaurantNames);
+    const unsoldRestaurants = restaurantInfo.filter(restaurant => !soldRestaurantNames.has(restaurant.name.toUpperCase()))
+                                            .map(restaurant => restaurant.name);
+    console.log("Restaurants that did not make any sales:" ,unsoldRestaurants);
 }
 
 /**
@@ -121,7 +181,6 @@ function getRestaurantWithSameItems() {
         }
     });
 
-    console.log(foodMap.values());
     const similarRestaurants = Array.from(foodMap.values())
         .filter(restaurants => restaurants.length > 1);
 
@@ -143,7 +202,6 @@ function getUsersWithFoodAndBeverage() {
     );
     
     const numberOfUsers = usersWithFoodAndBeverage.size;
-    console.log(usersWithFoodAndBeverage);
     console.log(`Number of users who ordered both food and beverage: ${numberOfUsers}`);
 }
 
@@ -187,47 +245,23 @@ function sortOrdersByDate() {
     const userInput = prompt('Do you want to sort in ASC/DESC?');
 
     const orders = ordersData;
-    const ordersWithUpdatedDate = orders.map(obj => {
-        return {...obj, date: new Date(obj.date)};
-    });
+    const ordersWithUpdatedDate = orders.map(obj => ({ ...obj, date: new Date(obj.date) }));
 
-    if(userInput === 'ASC'){
-       const sortedAscOrders = ordersWithUpdatedDate.sort(
-            (objA, objB) => Number(objA.date) - Number(objB.date),
-        );
-        const orderMap = new Map(sortedAscOrders.map((obj, index) => [obj.id, index]));
-        console.log('Sorted Orders in Ascending', orders.sort((a, b) => orderMap.get(a.id) - orderMap.get(b.id)));
-    } else if (userInput === 'DESC') {
-        const sortedDescOrders = ordersWithUpdatedDate.sort(
-            (objA, objB) => Number(objB.date) - Number(objA.date),
-        );
-        const orderMap = new Map(sortedDescOrders.map((obj, index) => [obj.id, index]));
-        console.log('Sorted Orders in Descending', orders.sort((a, b) => orderMap.get(a.id) - orderMap.get(b.id)));
+    let sortedOrders;
+    if (userInput === 'ASC' || userInput === 'DESC') {
+        const sortOrder = userInput === 'ASC' ? 1 : -1;
+        sortedOrders = ordersWithUpdatedDate.sort((prevOrder, nextOrder) => {
+            return sortOrder * (prevOrder.date - nextOrder.date);
+        });
+        const orderMap = new Map(sortedOrders.map((order, index) => [order.id, index]));
+        console.log(`Sorted Orders in ${userInput === 'ASC' ? 'Ascending' : 'Descending'}`, 
+                    orders.sort((prevOrder, nextOrder) => orderMap.get(prevOrder.id) - orderMap.get(nextOrder.id)));
+    } else {
+        console.log('Invalid input. Please enter either "ASC" or "DESC".');
     }
-    
+    return sortedOrders;
 }
 
-function getUniqueUserIds() {
-
-    const orders = ordersData;
-    const uniqueUserIds = new Set();
-
-    for (const order of orders) {
-        if (order.item && order.drink) {
-            console.log('swe', order);
-            if (order.item === order.drink) {
-                // console.log('swe order and', order);
-                uniqueUserIds.add(order.userId);
-            }
-       //TODO::
-    }
-
-    // Convert the set to an array
-    const uniqueUserIdsArray = Array.from(uniqueUserIds);
-    console.log('swe uniqueUserIdsArray', uniqueUserIdsArray);
-}
-
-}
 
 
 
@@ -236,10 +270,10 @@ document.getElementById("button-container").addEventListener("click", function(e
 
     switch (buttonId) {
         case "1":
-            getMaxItemSoldDay();
+            getMaxSaleDetails();
             break;
         case "2":
-            getUniqueUserIds();
+            checkDuplicateOrders();
             break;
         case "3":
             getHighSaleRestaurant();
