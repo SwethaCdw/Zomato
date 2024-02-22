@@ -8,6 +8,7 @@ import { APP_CONSTANTS } from '../constants/app-constants.js';
 function getMaxSaleDetails(){
     const orders = ordersData;
     let itemsSoldByDate = getItemsSoldByDate(orders);
+    console.log('itemsSoldByDate', itemsSoldByDate);
     
     let maxDayDetail = getMaxSoldDayDetail(itemsSoldByDate);
 
@@ -23,6 +24,11 @@ function getMaxSaleDetails(){
                 
 }
 
+/**
+ * Find which date has the most items quantity
+ * @param {*} itemsSoldByDate list of date with quantity
+ * @returns maxDayDetail
+ */
 function getMaxSoldDayDetail(itemsSoldByDate) {
     let maxDate = null;
     let maxItemsSold = 0;
@@ -44,6 +50,14 @@ function getMaxSoldDayDetail(itemsSoldByDate) {
     return maxDayDetail;
 }
 
+//get the price in the object - would reduce the number of iternations
+
+/**
+ * 
+ * @param {*} dayType weekday or weekend
+ * @param {*} orders orders data
+ * @returns weekdaySale/weekendSale
+ */
 function getWeekDayAndWeekendSale(dayType, orders) {
     let weekdaySale = 0;
     let weekendSale = 0;
@@ -51,15 +65,20 @@ function getWeekDayAndWeekendSale(dayType, orders) {
     orders.forEach(order => {
         const orderDate = new Date(order.date);
         if (orderDate.getDay() >= 1 && orderDate.getDay() <= 5) {
-            weekdaySale += order.price * order.quantity;
+            weekdaySale += order.price 
         } else {
-            weekendSale += order.price * order.quantity;
+            weekendSale += order.price 
         }
     });
 
     return dayType === 'WEEKDAY' ? weekdaySale : weekendSale;
 }
 
+/**
+ * 
+ * @param {*} orders 
+ * @returns the list of dates with corresponding quanitity
+ */
 function getItemsSoldByDate(orders) {
     return orders.reduce((obj, order) => {
 
@@ -72,6 +91,8 @@ function getItemsSoldByDate(orders) {
         return obj;
     }, {});
 }
+
+//2
 
 /**
  * How many users placed same order and print details of users & order details
@@ -90,9 +111,11 @@ function checkDuplicateOrders() {
         let userIds = new Set();
         const key = order.item + "-" + (order.drink || "");
         const existingOrders = orderMap.get(key) || [];
-        existingOrders.forEach(existingOrder => {
-            userIds.add(existingOrder.userId);
-        })
+        if(existingOrders.length !== 0){
+            existingOrders.forEach(existingOrder => {
+                userIds.add(existingOrder.userId);
+            })
+        }
         if(!userIds.has(order.userId)){
             existingOrders.push(order);
             orderMap.set(key, existingOrders);
@@ -124,6 +147,12 @@ function getHighSaleRestaurant() {
     console.log(`Highest Sales Restaurant Name : ${highestSellingRestaurant} Sale Price : ${highestSales}`);
 }
 
+/**
+ * To get the restaurant and the total price
+ * @param {*} restaurantSalesMap 
+ * @param {*} orders 
+ */
+
 function getRestaurantSalesMap(restaurantSalesMap, orders) {
     orders.forEach(order => {
         const { restaurant_name, price } = order;
@@ -136,6 +165,11 @@ function getRestaurantSalesMap(restaurantSalesMap, orders) {
     });
 }
 
+/**
+ * 
+ * @param {*} restaurantSalesMap 
+ * @returns highestSales & highestSellingRestaurant
+ */
 function getHighestSaleRestaurantDetails(restaurantSalesMap) {
     let highestSales = 0;
     let highestSellingRestaurant = '';
@@ -213,14 +247,19 @@ function getSoldQuantityInfo() {
     const restaurantName = prompt('Please enter the restaurant name'); //Honest John Pizza
     const itemName = prompt('Please enter the food item name'); //cheese pizza
 
-    const totalSold = orders.reduce((total, order) => {
-        if (order.restaurant_name === restaurantName && order.item === itemName) {
-            total += order.quantity;
-        }
-        return total;
-    }, 0);
-
-    console.log(`Total ${itemName} sold at ${restaurantName}: ${totalSold}`);
+    if(restaurantName.length !== 0 || itemName.length !== 0){
+        const totalSold = orders.reduce((total, order) => {
+            if (order.restaurant_name === restaurantName && order.item === itemName) {
+                total += order.quantity;
+            }
+            return total;
+        }, 0);
+    
+        console.log(`Total ${itemName} sold at ${restaurantName}: ${totalSold}`);
+    } else {
+        console.log('Invalid input. Please enter valid restaurant name or item name');
+    }
+    
 }
 
 /**
@@ -230,12 +269,17 @@ function getRestaurantInfo() {
     const restaurantData = restaurantsData;
     const itemToFind = prompt('Please enter the beverage/food item name'); 
 
-    const restaurantsServingItem = restaurantData
+    console.log(itemToFind);
+    if (!itemToFind.length !== 0) {
+        const restaurantsServingItem = restaurantData
         .filter(restaurant => restaurant.food.includes(itemToFind) || restaurant.beverages.includes(itemToFind))
         .map(restaurant => restaurant.name);
 
-    console.log(`Restaurants serving ${itemToFind}:`);
-    console.log(restaurantsServingItem);
+        console.log(`Restaurants serving ${itemToFind}:`);
+        console.log(restaurantsServingItem);
+    } else {
+        console.log('Invalid input. Please enter valid beverage/food item name');
+    }
 }
 
 /**
